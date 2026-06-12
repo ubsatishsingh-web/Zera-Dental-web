@@ -53,31 +53,31 @@ export default function FreeAudit() {
 
     try {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzR7aWhgKxRj4Zp4aHreK_z7bSExL9wLhR4c_s9g_gG9g9Gg_G9g/exec';
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
 
       const payload = {
         timestamp: new Date().toISOString(),
+        name: formData.name,
         fullName: formData.name,
         clinicName: formData.clinicName,
         city: formData.city,
+        phone: formData.phone,
         phoneNumber: formData.phone,
+        email: formData.email,
         emailAddress: formData.email,
-        websiteUrl: formData.websiteUrl || 'N/A',
-        referral: formData.referral,
+        websiteStatus: formData.websiteUrl || 'None',
+        hasWebsite: formData.websiteUrl || 'None',
         source: 'Free Audit',
-        sourceSheet: "https://docs.google.com/spreadsheets/d/1VFMj370Ijs1a269xGArSjU6L-JEmGoWvQin5mTRxz9g"
+        message: `How they heard: ${formData.referral}`
       };
 
       // Real fetch payload transmission
       await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload)
-      }).catch(() => {
-        // Capture any CORS failures gracefully to prevent UI freeze
       });
 
       setIsSubmitted(true);

@@ -46,32 +46,32 @@ export default function Contact() {
       // We perform a real fetch call to the Apps Script endpoint (or fall back gracefully to simulate perfectly).
       // Note: Because Google Apps Script web app URLs can sometimes trigger CORS depending on configuration, 
       // we ensure that the user gets the success screen regardless of CORS blocks.
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzR7aWhgKxRj4Zp4aHreK_z7bSExL9wLhR4c_s9g_gG9g9Gg_G9g/exec'; // Standard mockable structure
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
 
-      // Format data as url encoded or JSON
+      // Format data with both naming styles for robust spreadsheet scripting ingestion
       const payload = {
         timestamp: new Date().toISOString(),
+        name: formData.fullName,
         fullName: formData.fullName,
         clinicName: formData.clinicName,
         city: formData.city,
+        phone: formData.phoneNumber,
         phoneNumber: formData.phoneNumber,
-        emailAddress: formData.emailAddress,
+        email: formData.emailAddress || 'N/A',
+        emailAddress: formData.emailAddress || 'N/A',
+        websiteStatus: formData.hasWebsite,
         hasWebsite: formData.hasWebsite,
-        message: formData.message,
-        sourceSheet: "https://docs.google.com/spreadsheets/d/1VFMj370Ijs1a269xGArSjU6L-JEmGoWvQin5mTRxz9g"
+        source: "Contact Form",
+        message: formData.message || "N/A"
       };
 
       // We issue the fetch to propagate clinical data.
-      // We use 'no-cors' so even if CORS isn't set up perfectly on their script, the data gets sent and doesn't crash the browser.
       await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload)
-      }).catch(() => {
-        // Silently capture and allow standard graceful rendering
       });
 
       // Show success screen
