@@ -55,30 +55,40 @@ export default function FreeAudit() {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
       const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
 
-      // Create URLSearchParams representing form fields
-      const params = new URLSearchParams();
-      params.append('timestamp', new Date().toISOString());
-      params.append('name', formData.name);
-      params.append('fullName', formData.name);
-      params.append('clinicName', formData.clinicName);
-      params.append('city', formData.city);
-      params.append('phone', formData.phone);
-      params.append('phoneNumber', formData.phone);
-      params.append('email', formData.email);
-      params.append('emailAddress', formData.email);
-      params.append('websiteStatus', formData.websiteUrl || 'None');
-      params.append('hasWebsite', formData.websiteUrl || 'None');
-      params.append('source', 'Free Audit');
-      params.append('message', `How they heard: ${formData.referral}`);
+      // Construct a unified payload
+      const payload = {
+        timestamp: new Date().toISOString(),
+        name: formData.name,
+        fullName: formData.name,
+        clinicName: formData.clinicName,
+        city: formData.city,
+        phone: formData.phone,
+        phoneNumber: formData.phone,
+        email: formData.email,
+        emailAddress: formData.email,
+        websiteStatus: formData.websiteUrl || 'None',
+        hasWebsite: formData.websiteUrl || 'None',
+        source: 'Free Audit',
+        message: `How they heard: ${formData.referral}`
+      };
 
-      // Real fetch payload transmission
-      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+      // Create URLSearchParams representing form fields for parameter-based scripts
+      const queryParams = new URLSearchParams();
+      Object.entries(payload).forEach(([key, val]) => {
+        queryParams.append(key, String(val));
+      });
+
+      // Construct a URL containing all query parameters
+      const submissionUrl = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
+
+      // Real fetch payload transmission containing the query string AND the post body JSON
+      await fetch(submissionUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: params.toString()
+        body: JSON.stringify(payload)
       });
 
       setIsSubmitted(true);

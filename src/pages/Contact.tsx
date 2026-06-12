@@ -48,30 +48,42 @@ export default function Contact() {
       // we ensure that the user gets the success screen regardless of CORS blocks.
       const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
 
-      // Create URLSearchParams representing form fields
-      const params = new URLSearchParams();
-      params.append('timestamp', new Date().toISOString());
-      params.append('name', formData.fullName);
-      params.append('fullName', formData.fullName);
-      params.append('clinicName', formData.clinicName);
-      params.append('city', formData.city);
-      params.append('phone', formData.phoneNumber);
-      params.append('phoneNumber', formData.phoneNumber);
-      params.append('email', formData.emailAddress || 'N/A');
-      params.append('emailAddress', formData.emailAddress || 'N/A');
-      params.append('websiteStatus', formData.hasWebsite);
-      params.append('hasWebsite', formData.hasWebsite);
-      params.append('source', 'Contact Form');
-      params.append('message', formData.message || 'N/A');
+      // Construct a unified payload
+      const payload = {
+        timestamp: new Date().toISOString(),
+        name: formData.fullName,
+        fullName: formData.fullName,
+        clinicName: formData.clinicName,
+        city: formData.city,
+        phone: formData.phoneNumber,
+        phoneNumber: formData.phoneNumber,
+        email: formData.emailAddress || 'N/A',
+        emailAddress: formData.emailAddress || 'N/A',
+        websiteStatus: formData.hasWebsite,
+        hasWebsite: formData.hasWebsite,
+        source: 'Contact Form',
+        message: formData.message || 'N/A'
+      };
 
-      // Issue the POST fetch with perfect CORS safelisting via application/x-www-form-urlencoded
-      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+      // Create URLSearchParams representing form fields for parameter-based scripts
+      const queryParams = new URLSearchParams();
+      Object.entries(payload).forEach(([key, val]) => {
+        queryParams.append(key, String(val));
+      });
+
+      // Construct a URL containing all query parameters
+      const submissionUrl = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
+
+      // Issue the POST request with the URL params AND the JSON string body.
+      // We use 'text/plain;charset=utf-8' as standard to avoid CORS preflight (OPTIONS) blocks under no-cors mode,
+      // whilst still delivering clean parseable JSON to script.google.com!
+      await fetch(submissionUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: params.toString()
+        body: JSON.stringify(payload)
       });
 
       // Show success screen
