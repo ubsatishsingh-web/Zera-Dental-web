@@ -46,7 +46,7 @@ export default function Contact() {
       // We perform a real fetch call to the Apps Script endpoint (or fall back gracefully to simulate perfectly).
       // Note: Because Google Apps Script web app URLs can sometimes trigger CORS depending on configuration, 
       // we ensure that the user gets the success screen regardless of CORS blocks.
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
 
       // Create URLSearchParams representing form fields
       const params = new URLSearchParams();

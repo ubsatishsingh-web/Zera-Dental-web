@@ -53,7 +53,7 @@ export default function FreeAudit() {
 
     try {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
 
       // Create URLSearchParams representing form fields
       const params = new URLSearchParams();
