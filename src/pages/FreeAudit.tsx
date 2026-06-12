@@ -71,11 +71,33 @@ export default function FreeAudit() {
         message: `How they heard: ${formData.referral}`
       };
 
+      // To be 100% compatible with either JSON body parsing or URL parameter parsing in Google Apps Script,
+      // we attach the values both as URL parameters AND in a non-preflighted text/plain JSON POST body.
+      // This enforces no OPTIONS preflight CORS blocking while ensuring the script gets the data.
+      const queryParams = new URLSearchParams({
+        timestamp: payload.timestamp,
+        name: payload.name,
+        fullName: payload.fullName,
+        clinicName: payload.clinicName,
+        city: payload.city,
+        phone: payload.phone,
+        phoneNumber: payload.phoneNumber,
+        email: payload.email,
+        emailAddress: payload.emailAddress,
+        websiteStatus: payload.websiteStatus,
+        hasWebsite: payload.hasWebsite,
+        source: payload.source,
+        message: payload.message
+      });
+
+      const urlWithParams = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
+
       // Real fetch payload transmission
-      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+      await fetch(urlWithParams, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(payload)
       });
