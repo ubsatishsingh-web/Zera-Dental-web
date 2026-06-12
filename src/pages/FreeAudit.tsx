@@ -55,51 +55,30 @@ export default function FreeAudit() {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
       const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
 
-      const payload = {
-        timestamp: new Date().toISOString(),
-        name: formData.name,
-        fullName: formData.name,
-        clinicName: formData.clinicName,
-        city: formData.city,
-        phone: formData.phone,
-        phoneNumber: formData.phone,
-        email: formData.email,
-        emailAddress: formData.email,
-        websiteStatus: formData.websiteUrl || 'None',
-        hasWebsite: formData.websiteUrl || 'None',
-        source: 'Free Audit',
-        message: `How they heard: ${formData.referral}`
-      };
-
-      // To be 100% compatible with either JSON body parsing or URL parameter parsing in Google Apps Script,
-      // we attach the values both as URL parameters AND in a non-preflighted text/plain JSON POST body.
-      // This enforces no OPTIONS preflight CORS blocking while ensuring the script gets the data.
-      const queryParams = new URLSearchParams({
-        timestamp: payload.timestamp,
-        name: payload.name,
-        fullName: payload.fullName,
-        clinicName: payload.clinicName,
-        city: payload.city,
-        phone: payload.phone,
-        phoneNumber: payload.phoneNumber,
-        email: payload.email,
-        emailAddress: payload.emailAddress,
-        websiteStatus: payload.websiteStatus,
-        hasWebsite: payload.hasWebsite,
-        source: payload.source,
-        message: payload.message
-      });
-
-      const urlWithParams = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
+      // Create URLSearchParams representing form fields
+      const params = new URLSearchParams();
+      params.append('timestamp', new Date().toISOString());
+      params.append('name', formData.name);
+      params.append('fullName', formData.name);
+      params.append('clinicName', formData.clinicName);
+      params.append('city', formData.city);
+      params.append('phone', formData.phone);
+      params.append('phoneNumber', formData.phone);
+      params.append('email', formData.email);
+      params.append('emailAddress', formData.email);
+      params.append('websiteStatus', formData.websiteUrl || 'None');
+      params.append('hasWebsite', formData.websiteUrl || 'None');
+      params.append('source', 'Free Audit');
+      params.append('message', `How they heard: ${formData.referral}`);
 
       // Real fetch payload transmission
-      await fetch(urlWithParams, {
+      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(payload)
+        body: params.toString()
       });
 
       setIsSubmitted(true);

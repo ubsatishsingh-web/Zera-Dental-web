@@ -48,52 +48,30 @@ export default function Contact() {
       // we ensure that the user gets the success screen regardless of CORS blocks.
       const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzrvKnHNuEqE9nxc5GR0nppP3oqzLQwL7iv0k4YCo2FoO_JWUN_ZtLuUb9V2uXxl2sx/exec';
 
-      // Format data with both naming styles for robust spreadsheet scripting ingestion
-      const payload = {
-        timestamp: new Date().toISOString(),
-        name: formData.fullName,
-        fullName: formData.fullName,
-        clinicName: formData.clinicName,
-        city: formData.city,
-        phone: formData.phoneNumber,
-        phoneNumber: formData.phoneNumber,
-        email: formData.emailAddress || 'N/A',
-        emailAddress: formData.emailAddress || 'N/A',
-        websiteStatus: formData.hasWebsite,
-        hasWebsite: formData.hasWebsite,
-        source: "Contact Form",
-        message: formData.message || "N/A"
-      };
+      // Create URLSearchParams representing form fields
+      const params = new URLSearchParams();
+      params.append('timestamp', new Date().toISOString());
+      params.append('name', formData.fullName);
+      params.append('fullName', formData.fullName);
+      params.append('clinicName', formData.clinicName);
+      params.append('city', formData.city);
+      params.append('phone', formData.phoneNumber);
+      params.append('phoneNumber', formData.phoneNumber);
+      params.append('email', formData.emailAddress || 'N/A');
+      params.append('emailAddress', formData.emailAddress || 'N/A');
+      params.append('websiteStatus', formData.hasWebsite);
+      params.append('hasWebsite', formData.hasWebsite);
+      params.append('source', 'Contact Form');
+      params.append('message', formData.message || 'N/A');
 
-      // To be 100% compatible with either JSON body parsing or URL parameter parsing in Google Apps Script,
-      // we attach the values both as URL parameters AND in a non-preflighted text/plain JSON POST body.
-      // This enforces no OPTIONS preflight CORS blocking while ensuring the script gets the data.
-      const queryParams = new URLSearchParams({
-        timestamp: payload.timestamp,
-        name: payload.name,
-        fullName: payload.fullName,
-        clinicName: payload.clinicName,
-        city: payload.city,
-        phone: payload.phone,
-        phoneNumber: payload.phoneNumber,
-        email: payload.email,
-        emailAddress: payload.emailAddress,
-        websiteStatus: payload.websiteStatus,
-        hasWebsite: payload.hasWebsite,
-        source: payload.source,
-        message: payload.message
-      });
-
-      const urlWithParams = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
-
-      // We issue the fetch to propagate clinical data.
-      await fetch(urlWithParams, {
+      // Issue the POST fetch with perfect CORS safelisting via application/x-www-form-urlencoded
+      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(payload)
+        body: params.toString()
       });
 
       // Show success screen
