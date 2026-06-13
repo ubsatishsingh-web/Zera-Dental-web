@@ -43,7 +43,7 @@ export default function Contact() {
 
     try {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbbBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzhNiy_CkWIeXUt1HldnA_7uDM-R2T_sE0t4pV5Mh7hDWd3Sq4UJFe24elcWTvxbQKg/exec';
 
       const timestampVal = new Date().toISOString();
       const nameVal = formData.fullName;
