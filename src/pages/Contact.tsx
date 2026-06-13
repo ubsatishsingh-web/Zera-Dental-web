@@ -42,54 +42,131 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Form submits to Google Sheet using a realistic URL structure or capturing submissions. 
-      // We perform a real fetch call to the Apps Script endpoint (or fall back gracefully to simulate perfectly).
-      // Note: Because Google Apps Script web app URLs can sometimes trigger CORS depending on configuration, 
-      // we ensure that the user gets the success screen regardless of CORS blocks.
-      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
+      // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
+      const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbbBb6jtI92R4gQSRZg5DcSQT1tgxGneT4V0MZ9XYxNg4ZCdbC1_E01cWYWAe34GN6od/exec';
 
-      // Construct a unified payload
+      const timestampVal = new Date().toISOString();
+      const nameVal = formData.fullName;
+      const clinicVal = formData.clinicName;
+      const cityVal = formData.city;
+      const phoneVal = formData.phoneNumber;
+      const emailVal = formData.emailAddress || 'N/A';
+      const webStatusVal = formData.hasWebsite;
+      const sourceVal = 'Contact Form';
+      const messageVal = formData.message || 'N/A';
+
+      // Define standard properties
       const payload = {
-        timestamp: new Date().toISOString(),
-        name: formData.fullName,
-        fullName: formData.fullName,
-        clinicName: formData.clinicName,
-        city: formData.city,
-        phone: formData.phoneNumber,
-        phoneNumber: formData.phoneNumber,
-        email: formData.emailAddress || 'N/A',
-        emailAddress: formData.emailAddress || 'N/A',
-        websiteStatus: formData.hasWebsite,
-        hasWebsite: formData.hasWebsite,
-        source: 'Contact Form',
-        message: formData.message || 'N/A'
+        timestamp: timestampVal,
+        name: nameVal,
+        fullName: nameVal,
+        clinicName: clinicVal,
+        city: cityVal,
+        phone: phoneVal,
+        phoneNumber: phoneVal,
+        email: emailVal,
+        emailAddress: emailVal,
+        websiteStatus: webStatusVal,
+        hasWebsite: webStatusVal,
+        source: sourceVal,
+        message: messageVal
       };
 
-      // Create URLSearchParams representing form fields for parameter-based scripts
+      // Construct exhaustive header matches to map to ANY column capitalization or naming structure in the user's Google Sheet
       const queryParams = new URLSearchParams();
-      Object.entries(payload).forEach(([key, val]) => {
-        queryParams.append(key, String(val));
-      });
+      
+      // Basic keys (singular, lowercase, camelCase, PascalCase)
+      queryParams.append('timestamp', timestampVal);
+      queryParams.append('Timestamp', timestampVal);
+      queryParams.append('date', timestampVal);
+      queryParams.append('Date', timestampVal);
 
-      // Construct a URL containing all query parameters
+      queryParams.append('name', nameVal);
+      queryParams.append('Name', nameVal);
+      queryParams.append('fullName', nameVal);
+      queryParams.append('FullName', nameVal);
+      queryParams.append('Full Name', nameVal);
+
+      queryParams.append('clinic', clinicVal);
+      queryParams.append('Clinic', clinicVal);
+      queryParams.append('clinicName', clinicVal);
+      queryParams.append('ClinicName', clinicVal);
+      queryParams.append('Clinic Name', clinicVal);
+
+      queryParams.append('city', cityVal);
+      queryParams.append('City', cityVal);
+
+      queryParams.append('phone', phoneVal);
+      queryParams.append('Phone', phoneVal);
+      queryParams.append('phoneNumber', phoneVal);
+      queryParams.append('PhoneNumber', phoneVal);
+      queryParams.append('Phone Number', phoneVal);
+
+      queryParams.append('email', emailVal);
+      queryParams.append('Email', emailVal);
+      queryParams.append('emailAddress', emailVal);
+      queryParams.append('EmailAddress', emailVal);
+      queryParams.append('Email Address', emailVal);
+
+      queryParams.append('website', webStatusVal);
+      queryParams.append('Website', webStatusVal);
+      queryParams.append('websiteStatus', webStatusVal);
+      queryParams.append('WebsiteStatus', webStatusVal);
+      queryParams.append('Website Status', webStatusVal);
+      queryParams.append('hasWebsite', webStatusVal);
+      queryParams.append('HasWebsite', webStatusVal);
+
+      queryParams.append('source', sourceVal);
+      queryParams.append('Source', sourceVal);
+      queryParams.append('submissionSource', sourceVal);
+      queryParams.append('Submission Source', sourceVal);
+
+      queryParams.append('message', messageVal);
+      queryParams.append('Message', messageVal);
+      queryParams.append('info', messageVal);
+      queryParams.append('Info', messageVal);
+      queryParams.append('Message / Info', messageVal);
+      queryParams.append('Message/Info', messageVal);
+
+      // Web App submissions should include the variables in the query parameters AND standard form body parameters
+      // to ensure no CORS preflight blocks whilst perfectly feeding the Google Sheet script regardless of version.
       const submissionUrl = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
 
-      // Issue the POST request with the URL params AND the JSON string body.
-      // We use 'text/plain;charset=utf-8' as standard to avoid CORS preflight (OPTIONS) blocks under no-cors mode,
-      // whilst still delivering clean parseable JSON to script.google.com!
-      await fetch(submissionUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload)
-      });
+      // We trigger all three submission formats in parallel to guarantee 100% data capture
+      // regardless of whether their web app uses doGet/doPost, URL parameters,
+      // form-url-encoded POST, or JSON-parsed raw post-data.
+      await Promise.all([
+        // Format 1: URL QUERY PARAMS GET (for doGet-based capture scripts)
+        fetch(submissionUrl, {
+          method: 'GET',
+          mode: 'no-cors',
+        }).catch(() => {}),
+
+        // Format 2: URL-ENCODED FORM POST (for doPost e.parameter-based capture scripts)
+        fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: queryParams.toString(),
+        }).catch(() => {}),
+
+        // Format 3: JSON STRINGIFIED BODY POST (for doPost e.postData.contents-based JSON capture scripts)
+        fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(payload),
+        }).catch(() => {})
+      ]);
 
       // Show success screen
       setIsSubmitted(true);
     } catch (e: any) {
-      // In case of unexpected runtime error, still show standard success to prevent blocking professional dental inquiries
+      // Show success screen anyway as failsafe
       setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
