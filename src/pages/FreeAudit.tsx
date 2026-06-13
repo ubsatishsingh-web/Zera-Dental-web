@@ -138,40 +138,15 @@ export default function FreeAudit() {
       queryParams.append('Message / Info', messageVal);
       queryParams.append('Message/Info', messageVal);
 
-      // Web App submissions should include the variables in the query parameters AND standard form body parameters
-      // to ensure no CORS preflight blocks whilst perfectly feeding the Google Sheet script regardless of version.
-      const submissionUrl = `${GOOGLE_SCRIPT_WEBAPP_URL}?${queryParams.toString()}`;
-
-      // We trigger all three submission formats in parallel to guarantee 100% data capture
-      // regardless of whether their web app uses doGet/doPost, URL parameters,
-      // form-url-encoded POST, or JSON-parsed raw post-data.
-      await Promise.all([
-        // Format 1: URL QUERY PARAMS GET (for doGet-based capture scripts)
-        fetch(submissionUrl, {
-          method: 'GET',
-          mode: 'no-cors',
-        }).catch(() => {}),
-
-        // Format 2: URL-ENCODED FORM POST (for doPost e.parameter-based capture scripts)
-        fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: queryParams.toString(),
-        }).catch(() => {}),
-
-        // Format 3: JSON STRINGIFIED BODY POST (for doPost e.postData.contents-based JSON capture scripts)
-        fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8',
-          },
-          body: JSON.stringify(payload),
-        }).catch(() => {})
-      ]);
+      // Send a single POST request with URL-encoded parameters to avoid triplicate entries
+      await fetch(GOOGLE_SCRIPT_WEBAPP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: queryParams.toString(),
+      });
 
       setIsSubmitted(true);
     } catch (err) {
