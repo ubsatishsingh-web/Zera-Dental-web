@@ -114,8 +114,8 @@ export default function Portfolio({ onNavigate }: PortfolioProps) {
       <section className="py-20 bg-white" id="portfolio-grid-section">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           
-          {/* Grid of 6 cards. To support 2 columns on mobile, we use grid-cols-2 instead of grid-cols-1 */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          {/* Responsive grid: 1 column on mobile, 2 columns on small/medium screens, 3 columns on desktops */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {PROJECTS.map((project, idx) => (
               <motion.div
                 key={idx}

@@ -65,8 +65,8 @@ export default function App() {
       </div>
 
       {/* Main sticky navigation header */}
-      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-40 h-20 flex items-center shadow-xs">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
+      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-40 shadow-xs">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full h-20 flex items-center">
           <div className="flex justify-between items-center w-full">
             
             {/* Logo area */}
