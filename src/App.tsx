@@ -21,23 +21,40 @@ export default function App() {
 
   // Sync state with URL Hash if any, supports direct links
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleNavigationChange = () => {
       const hash = window.location.hash.replace('#', '') as Page;
       if (Object.values(Page).includes(hash)) {
-        setCurrentPage(hash);
+        if (hash === Page.Home) {
+          // Replace state to clear the unpolished #home hash from browser history/address bar
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          setCurrentPage(Page.Home);
+        } else {
+          setCurrentPage(hash);
+        }
+      } else if (!hash) {
+        setCurrentPage(Page.Home);
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleNavigationChange);
+    window.addEventListener('popstate', handleNavigationChange);
     // Initial check
-    handleHashChange();
+    handleNavigationChange();
 
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleNavigationChange);
+      window.removeEventListener('popstate', handleNavigationChange);
+    };
   }, []);
 
   // Set hash navigation
   const navigateTo = (page: Page) => {
-    window.location.hash = page;
+    if (page === Page.Home) {
+      // Clear hash from URL for a cleaner, polished brand experience (e.g., zeradental.in/)
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+    } else {
+      window.location.hash = page;
+    }
     setCurrentPage(page);
     setMobileMenuOpen(false);
     // Smooth scroll to top when changing page
