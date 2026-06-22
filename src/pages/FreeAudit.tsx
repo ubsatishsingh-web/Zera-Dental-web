@@ -1,8 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Check, Lock, ShieldAlert, CheckCircle2, MessageSquare } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 export default function FreeAudit() {
+  useEffect(() => {
+    updatePageSEO({
+      title: 'Free Dental SEO & Google Maps Audit India | Zera Dental',
+      description: 'Request a free, high-value professional digital audit of your dental clinic\'s local search ranking and dental website performance (worth ₹4,999). Get clear steps to double clinical bookings.',
+      keywords: 'free dental SEO audit India, audit dentist website speed, Google My Business review dentists Mumbai, online visibility analyzer clinics, Zera Dental tool audits',
+      ogUrl: 'https://zeradental.in#free-audit',
+      schemaId: 'free-audit-offer',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        'name': 'Free Dental Clinic Website & Local Maps SEO Audit',
+        'description': 'A detailed technical, brand, conversion, and local map pack ranking analysis tailored for Indian dental specialists.',
+        'provider': {
+          '@type': 'LocalBusiness',
+          'name': 'Zera Dental',
+          'telephone': '+919835102324'
+        },
+        'offers': {
+          '@type': 'Offer',
+          'name': 'Dental Digital Presence Evaluation',
+          'price': '0',
+          'priceCurrency': 'INR',
+          'category': 'Professional Consulting Service'
+        }
+      }
+    });
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     clinicName: '',

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Page } from '../types';
 import { Check, Star, HelpCircle, ArrowRight, Sparkles } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 interface PricingProps {
   onNavigate: (page: Page) => void;
@@ -9,28 +10,42 @@ interface PricingProps {
 
 export default function Pricing({ onNavigate }: PricingProps) {
   useEffect(() => {
-    const ogTags = [
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Zera Dental' },
-      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
-      { property: 'og:url', content: 'https://zeradental.in' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
-    ];
-
-    ogTags.forEach(tag => {
-      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        if (tag.property) meta.setAttribute('property', tag.property);
-        if (tag.name) meta.setAttribute('name', tag.name);
-        document.head.appendChild(meta);
+    updatePageSEO({
+      title: 'Dental Website Packages & Pricing India | Zera Dental',
+      description: 'Affordable, transparent pricing plans for dental clinic websites in India. Starter, Growth, and Elite packages with free dental SEO, SSL certificates, speed hosting, and WhatsApp booking widgets.',
+      keywords: 'dental website cost India, clinic website pricing Mumbai, dentist web designer cost Delhi, dentist branding packages, orthodontic website development rates, Zera Dental prices',
+      ogUrl: 'https://zeradental.in#pricing',
+      schemaId: 'pricing-faq',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': 'How much does a dental website cost in India?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'Zera Dental offers premium, highly optimized dental websites with transparent tiered pricing (Starter, Growth, Elite packages) custom-fit for single dentist practitioners to multi-specialty hospitals across India.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'Are hosting, custom domain, and SSL security included?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'Yes! All plans include standard high-speed cloud hosting (99.9% uptime), custom domain routing, SSL encryption, and security audits without hidden upcharges.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'Will my website rank on Google in my local city?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'Our Growth and Elite plans come equipped with specialized Dental Local Maps SEO, helping orthodontists and pediatric dentists rank in their specific territory or suburb.'
+            }
+          }
+        ]
       }
-      meta.setAttribute('content', tag.content);
     });
   }, []);
 

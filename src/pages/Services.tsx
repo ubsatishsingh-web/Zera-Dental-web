@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Page } from '../types';
 import { SERVICES_DATA } from '../data';
 import { Sparkles, Check, ArrowRight } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 interface ServicesProps {
   onNavigate: (page: Page) => void;
@@ -10,28 +11,56 @@ interface ServicesProps {
 
 export default function Services({ onNavigate }: ServicesProps) {
   useEffect(() => {
-    const ogTags = [
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Zera Dental' },
-      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
-      { property: 'og:url', content: 'https://zeradental.in' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
-    ];
-
-    ogTags.forEach(tag => {
-      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        if (tag.property) meta.setAttribute('property', tag.property);
-        if (tag.name) meta.setAttribute('name', tag.name);
-        document.head.appendChild(meta);
+    updatePageSEO({
+      title: 'Dental Website & Local SEO Services India | Zera Dental',
+      description: 'Explore premium web design & marketing features for Indian dental clinics. Includes real-time dental booking systems, Google Maps SEO, patient reviews, orthodontic blogs & speed optimizations.',
+      keywords: 'dental SEO services India, dental clinic websites Mumbai, dental website development, doctor appointment system website, local business SEO dentists Delhi, orthodonist web design, patient reviews widgets',
+      ogUrl: 'https://zeradental.in#services',
+      schemaId: 'services-list',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        'serviceType': 'Dental Website Design & Local Search Optimization',
+        'provider': {
+          '@type': 'LocalBusiness',
+          'name': 'Zera Dental',
+          'telephone': '+919835102324'
+        },
+        'areaServed': {
+          '@type': 'Country',
+          'name': 'India'
+        },
+        'hasOfferCatalog': {
+          '@type': 'OfferCatalog',
+          'name': 'Dental Clinic Web & Marketing Suite',
+          'itemListElement': [
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Custom Responsive Dental Web Design',
+                'description': 'Beautifully optimized layouts tailored specifically for Indian orthodontists, prosthodontists, pedodontists, and cosmetic dentists.'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Local Google Map (GMB) SEO & Review Sync',
+                'description': 'Dominate local Google Search and Google Map Packs in your city (Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Pune).'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Interactive Patient Scheduing Systems',
+                'description': 'Direct medical appointment forms and WhatsApp booking tools designed to reduce friction and double clinic inquiries.'
+              }
+            }
+          ]
+        }
       }
-      meta.setAttribute('content', tag.content);
     });
   }, []);
 

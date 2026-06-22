@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Page } from '../types';
 import { Sparkles, ArrowRight, ShieldCheck, Globe, Calendar, Star, Users, Phone, ShieldAlert, Laptop } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 interface HomeProps {
   onNavigate: (page: Page) => void;
@@ -9,28 +10,42 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   useEffect(() => {
-    const ogTags = [
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Zera Dental' },
-      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
-      { property: 'og:url', content: 'https://zeradental.in' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
-    ];
-
-    ogTags.forEach(tag => {
-      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        if (tag.property) meta.setAttribute('property', tag.property);
-        if (tag.name) meta.setAttribute('name', tag.name);
-        document.head.appendChild(meta);
+    updatePageSEO({
+      title: 'Dental Website Design & SEO Agency India | Zera Dental',
+      description: 'We build professional, responsive websites for dental clinics across India. Attract implant, orthodontic & cosmetic dentistry patients with local SEO. Get a free audit!',
+      keywords: 'dental website design India, websites for dental clinics, best dentist web developer India, dental SEO Mumbai, clinic website builder Delhi Bangalore, cosmetic dental website design Hyderabad, Zera Dental',
+      ogUrl: 'https://zeradental.in',
+      schemaId: 'home-agency',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'WebDesignService',
+        '@id': 'https://zeradental.in/#webdesign',
+        'name': 'Zera Dental',
+        'url': 'https://zeradental.in',
+        'logo': 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px',
+        'image': 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px',
+        'description': 'Zera Dental builds high-converting, professional premium websites for dental clinics across India. We focus strictly on dentist marketing, local SEO, and scheduling tools.',
+        'telephone': '+919835102324',
+        'priceRange': 'INR',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressCountry': 'IN'
+        },
+        'areaServed': [
+          { '@type': 'Country', 'name': 'India' },
+          { '@type': 'State', 'name': 'Maharashtra' },
+          { '@type': 'State', 'name': 'Delhi' },
+          { '@type': 'State', 'name': 'Karnataka' },
+          { '@type': 'State', 'name': 'Tamil Nadu' }
+        ],
+        'offers': {
+          '@type': 'Offer',
+          'name': 'Free Dental Clinic Website & SEO Audit',
+          'price': '0',
+          'priceCurrency': 'INR',
+          'description': 'Free expert speed, design, security, and local GMB Google Map listing audit for dental clinics in India.'
+        }
       }
-      meta.setAttribute('content', tag.content);
     });
   }, []);
 

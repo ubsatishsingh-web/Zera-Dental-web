@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Page } from '../types';
 import { Star, Sparkles } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 interface WhyZeraProps {
   onNavigate: (page: Page) => void;
@@ -9,28 +10,24 @@ interface WhyZeraProps {
 
 export default function WhyZera({ onNavigate }: WhyZeraProps) {
   useEffect(() => {
-    const ogTags = [
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Zera Dental' },
-      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
-      { property: 'og:url', content: 'https://zeradental.in' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
-    ];
-
-    ogTags.forEach(tag => {
-      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        if (tag.property) meta.setAttribute('property', tag.property);
-        if (tag.name) meta.setAttribute('name', tag.name);
-        document.head.appendChild(meta);
+    updatePageSEO({
+      title: 'Best Developer for Dentist Websites India | Why Choose Us',
+      description: 'Find out why top pediatric, cosmetic, and orthodontic dental clinics trust Zera Dental. We understand dentist clinical language, Indian patient habits, and Local Google Maps SEO workflows.',
+      keywords: 'best dentist website developer India, leading dental marketing agency Mumbai, specialized clinic website designers, dental GMB SEO experts Bangalore, Zera Dental reviews',
+      ogUrl: 'https://zeradental.in#why-us',
+      schemaId: 'why-us-about',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        'name': 'Why Indian Doctors Choose Zera Dental',
+        'description': 'An inside look at our specialized dental-only development focus, patient conversion workflows, and proven success metrics helping dental practitioners grow in India.',
+        'url': 'https://zeradental.in#why-us',
+        'mainEntity': {
+          '@type': 'ProfessionalService',
+          'name': 'Zera Dental',
+          'description': 'A specialized dental-website only software development studio building high-performance patient portals across major Indian cities.'
+        }
       }
-      meta.setAttribute('content', tag.content);
     });
   }, []);
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Page } from '../types';
 import { ArrowRight, Check, Zap, TrendingUp, Sparkles } from 'lucide-react';
+import { updatePageSEO } from '../utils/seo';
 
 interface PortfolioProps {
   onNavigate: (page: Page) => void;
@@ -9,28 +10,31 @@ interface PortfolioProps {
 
 export default function Portfolio({ onNavigate }: PortfolioProps) {
   useEffect(() => {
-    const ogTags = [
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Zera Dental' },
-      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
-      { property: 'og:url', content: 'https://zeradental.in' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
-      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
-      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
-    ];
-
-    ogTags.forEach(tag => {
-      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        if (tag.property) meta.setAttribute('property', tag.property);
-        if (tag.name) meta.setAttribute('name', tag.name);
-        document.head.appendChild(meta);
+    updatePageSEO({
+      title: 'Best Dental Website Design Portfolio India | Zera Dental',
+      description: 'Explore our latest dental web design examples and patient-growth case studies. See real conversion results from cosmetic, pediatric, and multi-specialty dental clinics in Patna, Delhi, and Mumbai.',
+      keywords: 'dental website portfolio, best dental website designs, clinic website templates India, dentist landing page examples, Smile Care Dental website, orthodonist web designer India',
+      ogUrl: 'https://zeradental.in#portfolio',
+      schemaId: 'portfolio-page',
+      schemaData: {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': 'Our Work & Case Studies | Zera Dental',
+        'description': 'A showcase of specialized, high-performing websites and digital patient acquisition systems built for Indian dental clinics, orthodontic centers, and implant surgeons.',
+        'url': 'https://zeradental.in#portfolio',
+        'about': [
+          {
+            '@type': 'CreativeWork',
+            'name': 'Smile Care Dental Website - Patna Case Study',
+            'description': 'Search engine SEO and maps optimization to bring the clinic to Google Page 1.'
+          },
+          {
+            '@type': 'CreativeWork',
+            'name': 'Apex Dental Hospital Website - Patna Case Study',
+            'description': 'Custom brand development & live scheduling portal attracting premium implant patients.'
+          }
+        ]
       }
-      meta.setAttribute('content', tag.content);
     });
   }, []);
 
