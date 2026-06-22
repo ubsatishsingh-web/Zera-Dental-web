@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Page } from '../types';
 import { ArrowRight, Check, Zap, TrendingUp, Sparkles } from 'lucide-react';
@@ -7,6 +8,32 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ onNavigate }: PortfolioProps) {
+  useEffect(() => {
+    const ogTags = [
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'Zera Dental' },
+      { property: 'og:title', content: 'Zera Dental — Websites For Dental Clinics' },
+      { property: 'og:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
+      { property: 'og:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' },
+      { property: 'og:url', content: 'https://zeradental.in' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: 'Zera Dental — Websites For Dental Clinics' },
+      { name: 'twitter:description', content: 'We build professional websites for dental clinics across India. Get more patients online.' },
+      { name: 'twitter:image', content: 'https://og-image.vercel.app/Zera%20Dental.png?theme=dark&md=0&fontSize=100px' }
+    ];
+
+    ogTags.forEach(tag => {
+      let meta = document.querySelector(tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`);
+      if (!meta) {
+        meta = document.createElement('meta');
+        if (tag.property) meta.setAttribute('property', tag.property);
+        if (tag.name) meta.setAttribute('name', tag.name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', tag.content);
+    });
+  }, []);
+
   const WHATSAPP_URL = "https://wa.me/919835102324?text=Hi%20Zera%20Dental%2C%20I%20saw%20your%20Our%20Work%20page%20and%20I%20want%2520to%20get%20a%20free%20website%20audit%20for%20my%20clinic";
 
   const PROJECTS = [
