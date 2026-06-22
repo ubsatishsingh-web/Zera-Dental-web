@@ -47,6 +47,14 @@ export default function Pricing({ onNavigate }: PricingProps) {
         ]
       }
     });
+
+    // Track pricing page view event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'pricing_viewed', {
+        'event_category': 'engagement',
+        'event_label': 'Pricing Page'
+      });
+    }
   }, []);
 
   // State for active FAQ Accordion

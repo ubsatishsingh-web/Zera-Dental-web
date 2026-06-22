@@ -42,6 +42,14 @@ export default function Portfolio({ onNavigate }: PortfolioProps) {
         ]
       }
     });
+
+    // Track portfolio page view event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'portfolio_viewed', {
+        'event_category': 'engagement',
+        'event_label': 'Our Work Page'
+      });
+    }
   }, []);
 
   const WHATSAPP_URL = "https://wa.me/919835102324?text=Hi%20Zera%20Dental%2C%20I%20saw%20your%20Our%20Work%20page%20and%20I%20want%2520to%20get%20a%20free%20website%20audit%20for%20my%20clinic";

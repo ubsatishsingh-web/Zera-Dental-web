@@ -72,6 +72,14 @@ export default function Contact() {
     setErrorMsg('');
     setIsSubmitting(true);
 
+    // Track contact form submission event
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'contact_form_submit', {
+        'event_category': 'lead',
+        'event_label': 'Contact Form'
+      });
+    }
+
     try {
       // Form submits to Google Sheet using Google Apps Script web app URL (as instructed)
       const GOOGLE_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzhNiy_CkWIeXUt1HldnA_7uDM-R2T_sE0t4pV5Mh7hDWd3Sq4UJFe24elcWTvxbQKg/exec';
