@@ -235,6 +235,9 @@ export default function WhyZera({ onNavigate }: WhyZeraProps) {
                   alt="Modern Dental Clinic Web Design Setup Process"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  width="500"
+                  height="500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a3c6e]/80 to-transparent flex items-end p-6">
                   <p className="text-xs sm:text-sm text-white font-mono uppercase tracking-wider font-bold">Patna HQ Serving India</p>

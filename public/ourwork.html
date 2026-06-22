@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Cache-Control" content="max-age=31536000">
   
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -24,151 +26,24 @@
   <meta name="description" content="Click inside to test drive highly responsive, live interactive dental websites built by Zera Dental India. Explore modern clinical layouts for orthodontists & dentists." />
   <meta name="keywords" content="dental websites, dentist portal design, live dental website demo, Zera Dental live site" />
   
-  <!-- Font: Poppins Google Fonts -->
+  <!-- Speed Preconnect and DNS Prefetch -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://og-image.vercel.app">
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            zeraBlue: '#1a3c6e',
-            zeraTeal: '#00b4d8',
-            laptopGrey: '#2d2d2d',
-          },
-          fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Faster Font Loading Strategy -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+  </noscript>
+
+  <!-- Inline Favicon to avoid 404 error -->
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
   
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-
-    /* WhatsApp Float Button CSS Styling */
-    .whatsapp-float-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .whatsapp-float-btn {
-      width: 60px;
-      height: 60px;
-      background-color: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.2s ease;
-      animation: pulse 2s infinite;
-      text-decoration: none;
-      position: relative;
-    }
-
-    .whatsapp-float-btn:hover {
-      background-color: #20ba5a;
-      transform: scale(1.05);
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-
-    .whatsapp-float-icon {
-      width: 32px;
-      height: 32px;
-      fill: #FFFFFF;
-    }
-
-    /* Red Notification Dot */
-    .whatsapp-notif-dot {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 12px;
-      height: 12px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      border: 1.5px solid #25D366;
-    }
-
-    /* Hover Tooltip */
-    .whatsapp-float-tooltip {
-      visibility: hidden;
-      opacity: 0;
-      position: absolute;
-      bottom: 75px;
-      right: 0;
-      background-color: #1a3c6e;
-      color: #ffffff;
-      text-align: center;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(26, 60, 110, 0.15);
-      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-      transform: translateY(5px);
-      pointer-events: none;
-      font-family: inherit;
-    }
-
-    /* Tooltip arrow */
-    .whatsapp-float-tooltip::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      right: 24px;
-      border-width: 6px;
-      border-style: solid;
-      border-color: #1a3c6e transparent transparent transparent;
-    }
-
-    .whatsapp-float-container:hover .whatsapp-float-tooltip {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Responsive layout tweaks */
-    @media (max-width: 768px) {
-      .whatsapp-float-container {
-        bottom: 25px;
-        right: 15px;
-      }
-      .whatsapp-float-btn {
-        width: 65px;
-        height: 65px;
-      }
-      .whatsapp-float-tooltip {
-        display: none !important;
-      }
-      .whatsapp-notif-dot {
-        top: 3px;
-        right: 3px;
-        width: 13px;
-        height: 13px;
-      }
-    }
-  </style>
+  <style>body{font-family:Poppins,sans-serif}.whatsapp-float-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;align-items:center;justify-content:center}.whatsapp-float-btn{width:60px;height:60px;background-color:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(37,211,102,0.5);cursor:pointer;transition:transform .2s ease,background-color .2s ease;animation:pulse 2s infinite;text-decoration:none;position:relative}.whatsapp-float-btn:hover{background-color:#20ba5a;transform:scale(1.05)}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6)}70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}.whatsapp-float-icon{width:32px;height:32px;fill:#FFF}.whatsapp-notif-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;background-color:#f00;border-radius:50%;border:1.5px solid #25D366}.whatsapp-float-tooltip{visibility:hidden;opacity:0;position:absolute;bottom:75px;right:0;background-color:#1a3c6e;color:#fff;text-align:center;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:500;white-space:nowrap;box-shadow:0 4px 12px rgba(26,60,110,0.15);transition:opacity .3s ease,visibility .3s ease,transform .3s ease;transform:translateY(5px);pointer-events:none;font-family:inherit}.whatsapp-float-tooltip::after{content:"";position:absolute;top:100%;right:24px;border-width:6px;border-style:solid;border-color:#1a3c6e transparent transparent transparent}.whatsapp-float-container:hover .whatsapp-float-tooltip{visibility:visible;opacity:1;transform:translateY(0)}@media(max-width:768px){.whatsapp-float-container{bottom:25px;right:15px}.whatsapp-float-btn{width:65px;height:65px}.whatsapp-float-tooltip{display:none!important}.whatsapp-notif-dot{top:3px;right:3px;width:13px;height:13px}}</style>
 </head>
 <body class="bg-white min-h-screen text-gray-800 flex flex-col justify-between selection:bg-[#00b4d8]/20 selection:text-[#1a3c6e]">
 
@@ -297,7 +172,8 @@
                   src="https://dr-shivani-kappa.vercel.app" 
                   class="w-full h-full border-0 relative z-10"
                   onload="document.getElementById('spinner-1').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-1').style.display='none'; }, 300);"
-                  title="Dr. Shivani Dental Clinic Live Preview"
+                  title="Dental clinic website preview — Dr. Shivani"
+                  loading="lazy"
                   referrerpolicy="no-referrer">
                 </iframe>
               </div>
@@ -354,7 +230,8 @@
                   src="https://dr-aarathi-pune.vercel.app" 
                   class="w-full h-full border-0 relative z-10"
                   onload="document.getElementById('spinner-2').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-2').style.display='none'; }, 300);"
-                  title="Dr. Aarathi Dental Studio Live Preview"
+                  title="Dental clinic website preview — Dr. Aarathi"
+                  loading="lazy"
                   referrerpolicy="no-referrer">
                 </iframe>
               </div>
@@ -411,7 +288,8 @@
                   src="https://om-dental-three.vercel.app" 
                   class="w-full h-full border-0 relative z-10"
                   onload="document.getElementById('spinner-3').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-3').style.display='none'; }, 300);"
-                  title="Om Dental Care Live Preview"
+                  title="Dental clinic website preview — Om Dental Care"
+                  loading="lazy"
                   referrerpolicy="no-referrer">
                 </iframe>
               </div>
@@ -515,5 +393,26 @@
       <span class="whatsapp-notif-dot"></span>
     </a>
   </div>
+
+  <!-- Tailwind CSS via CDN (Optimized via defer) -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script>
+    window.addEventListener('load', function() {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              zeraBlue: '#1a3c6e',
+              zeraTeal: '#00b4d8',
+              laptopGrey: '#2d2d2d',
+            },
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+            }
+          }
+        }
+      };
+    });
+  </script>
 </body>
 </html>

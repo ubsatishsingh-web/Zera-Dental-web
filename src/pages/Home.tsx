@@ -223,6 +223,9 @@ export default function Home({ onNavigate }: HomeProps) {
                   alt="Apex Multi-speciality Dental clinic website screenshot"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  width="400"
+                  height="225"
                 />
               </div>
               <div className="p-6 space-y-4">
@@ -248,6 +251,9 @@ export default function Home({ onNavigate }: HomeProps) {
                   alt="Verma Orthodontics and Laser Centre website screenshot"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  width="400"
+                  height="225"
                 />
               </div>
               <div className="p-6 space-y-4">
@@ -273,6 +279,9 @@ export default function Home({ onNavigate }: HomeProps) {
                   alt="Radiant Pediatric Dental studio website screenshot"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  width="400"
+                  height="225"
                 />
               </div>
               <div className="p-6 space-y-4">
