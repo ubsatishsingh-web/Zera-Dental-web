@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Page } from '../types';
-import { ArrowRight, Check, Zap, TrendingUp, Sparkles } from 'lucide-react';
+import { ArrowRight, Check, Zap, TrendingUp, Sparkles, Laptop } from 'lucide-react';
 import { updatePageSEO } from '../utils/seo';
 
 interface PortfolioProps {
@@ -9,6 +9,12 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ onNavigate }: PortfolioProps) {
+  const [loadedIframes, setLoadedIframes] = useState<Record<number, boolean>>({
+    0: false,
+    1: false,
+    2: false
+  });
+
   useEffect(() => {
     updatePageSEO({
       title: 'Best Dental Website Design Portfolio India | Zera Dental',
@@ -143,51 +149,110 @@ export default function Portfolio({ onNavigate }: PortfolioProps) {
 
       {/* SECTION 2 — PORTFOLIO GRID */}
       <section className="py-20 bg-white" id="portfolio-grid-section">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
           
-          {/* Responsive grid: 1 column on mobile, 2 columns on small/medium screens, 3 columns on desktops */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {PROJECTS.map((project, idx) => (
+          <div className="mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1a3c6e] mb-2">
+              Websites We Have Built
+            </h2>
+            <p className="text-sm sm:text-base text-gray-500 font-medium">
+              Click inside any website below to explore it live
+            </p>
+          </div>
+
+          {/* Interactive Laptop Showcase Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 xl:gap-12 text-left">
+            {[
+              {
+                url: "https://dr-shivani-kappa.vercel.app",
+                name: "Dr. Shivani Dental Clinic",
+                tagline: "Modern clinic website with appointment booking"
+              },
+              {
+                url: "https://dr-aarathi-pune.vercel.app",
+                name: "Dr. Aarathi Dental Studio — Pune",
+                tagline: "Clean professional website with Google Maps integration"
+              },
+              {
+                url: "https://om-dental-three.vercel.app",
+                name: "Om Dental Care",
+                tagline: "Complete clinic website with services and contact form"
+              }
+            ].map((site, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 overflow-hidden shadow-2xs group flex flex-col justify-between"
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="flex flex-col space-y-6"
               >
-                <div>
-                  <div className="relative overflow-hidden aspect-video bg-slate-50 border-b border-gray-100">
-                    <img 
-                      src={project.image} 
-                      alt={`${project.name} Website Screenshot`} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      referrerPolicy="no-referrer"
-                    />
+                {/* Custom CSS Laptop Mockup */}
+                <div className="relative w-full">
+                  {/* Laptop Screen Bezel casing */}
+                  <div className="relative mx-auto bg-[#2d2d2d] rounded-t-2xl p-3 pb-2 border-t border-x border-gray-600 shadow-2xl">
+                    {/* Webcam Lens */}
+                    <div className="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-slate-900 border border-gray-700 flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-950"></div>
+                    </div>
+                    
+                    {/* Embedded iFrame Screening Area */}
+                    <div className="relative bg-slate-950 rounded-lg overflow-hidden" style={{ height: '400px' }}>
+                      {/* Loading State Spinner overlay */}
+                      {!loadedIframes[idx] && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-20">
+                          <div className="w-10 h-10 border-4 border-[#00b4d8] border-t-transparent rounded-full animate-spin mb-4"></div>
+                          <p className="text-xs font-semibold text-gray-300">Opening live interactive demo...</p>
+                        </div>
+                      )}
+
+                      {/* Behind-view fallback information label */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-white p-6 text-center z-0">
+                        <Laptop className="w-12 h-12 text-gray-700 mb-3" />
+                        <p className="text-sm font-semibold tracking-wide text-gray-300">Live Website Loading</p>
+                        <p className="text-[11px] text-gray-500 max-w-xs mt-1 leading-relaxed">Please wait while the secure interactive sandbox initializes.</p>
+                      </div>
+
+                      {/* Interactive Web Sandbox iFrame */}
+                      <iframe 
+                        src={site.url} 
+                        className="w-full h-full border-0 relative z-10"
+                        onLoad={() => setLoadedIframes(prev => ({ ...prev, [idx]: true }))}
+                        title={`${site.name} Live Interactive Preview`}
+                        referrerPolicy="no-referrer">
+                      </iframe>
+                    </div>
                   </div>
                   
-                  <div className="p-3.5 sm:p-6 space-y-1 md:space-y-2">
-                    <div>
-                      <h3 className="text-sm sm:text-lg font-bold text-[#1a3c6e] truncate">{project.name}</h3>
-                      <p className="text-[10px] sm:text-xs text-gray-400 font-mono font-bold uppercase tracking-wider">{project.city}</p>
-                    </div>
-                    <p className="text-[11px] sm:text-sm text-gray-650 leading-normal font-light">
-                      {project.problem}
-                    </p>
+                  {/* Laptop Metallic Base Keyboard portion */}
+                  <div className="relative w-[106%] -ml-[3%] h-3 bg-gradient-to-b from-gray-500 via-[#1f1f1f] to-[#111111] rounded-b-xl shadow-lg z-30">
+                    {/* opening notch */}
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-[#0f0f0f] rounded-b"></div>
+                  </div>
+                  {/* Smooth floor drop-shadow of laptop */}
+                  <div className="w-[90%] mx-auto h-2 bg-black/10 rounded-full blur-xs mt-1"></div>
+                </div>
+
+                {/* Below each Mockup Frame */}
+                <div className="text-center md:text-left md:px-2 flex flex-col items-center md:items-start pt-2">
+                  <div>
+                    <h3 className="text-xl font-bold text-[#1a3c6e]">{site.name}</h3>
+                    <p className="text-xs text-gray-500 font-semibold">{site.tagline}</p>
                   </div>
                 </div>
 
-                <div className="p-3.5 sm:p-6 pt-0">
-                  <button 
-                    onClick={() => onNavigate(Page.Contact)}
-                    className="w-full inline-flex items-center justify-center py-2 sm:py-3 rounded-full text-white font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-sm cursor-pointer transition-all hover:opacity-95"
-                    style={{ backgroundColor: '#00b4d8' }}
-                  >
-                    View Live Site
-                  </button>
-                </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Bottom of Showcase Section */}
+          <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col items-center justify-center space-y-4">
+            <button 
+              onClick={() => onNavigate(Page.FreeAudit)}
+              className="inline-flex items-center justify-center px-10 py-4 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-[#00b4d8]/20 bg-[#00b4d8] hover:bg-[#009dc4] hover:-translate-y-0.5 cursor-pointer"
+            >
+              Want A Website Like These?
+            </button>
           </div>
 
         </div>

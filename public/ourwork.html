@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dental Websites We Have Built | Zera Dental Portfolio</title>
+  
+  <meta name="description" content="Click inside to test drive highly responsive, live interactive dental websites built by Zera Dental India. Explore modern clinical layouts for orthodontists & dentists." />
+  <meta name="keywords" content="dental websites, dentist portal design, live dental website demo, Zera Dental live site" />
+  
+  <!-- Font: Poppins Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            zeraBlue: '#1a3c6e',
+            zeraTeal: '#00b4d8',
+            laptopGrey: '#2d2d2d',
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen text-gray-800 flex flex-col justify-between selection:bg-[#00b4d8]/20 selection:text-[#1a3c6e]">
+
+  <!-- Top Announcement Alert Bar -->
+  <div class="bg-[#1a3c6e] text-white py-2 px-4 text-center text-xs font-medium tracking-wide">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-1.5 flex-wrap">
+      <svg class="w-3.5 h-3.5 text-[#00b4d8] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+      </svg>
+      <span>Special Offer: Free Dental SEO & Map Audit worth <b class="text-[#00b4d8]">₹4,999</b> with every new clinic inquiry!</span>
+      <a href="freeaudit.html" class="underline hover:text-[#00b4d8] ml-2 font-semibold inline-flex items-center gap-0.5">
+        Claim Audit 
+        <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main sticky navigation header -->
+  <header class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/index.html" class="flex items-center gap-2 text-left cursor-pointer">
+        <span class="text-2xl font-bold tracking-tight text-[#1a3c6e]">
+          Zera<span class="text-[#00b4d8]">Dental</span>
+        </span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex gap-1.5 items-center">
+        <a href="/index.html" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-650 hover:text-[#1a3c6e] hover:bg-slate-50 transition-all">Home</a>
+        <a href="/index.html#services" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-650 hover:text-[#1a3c6e] hover:bg-slate-50 transition-all">Services</a>
+        <a href="ourwork.html" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1a3c6e] bg-[#1a3c6e]/5 shadow-sm border border-[#1a3c6e]/10 transition-all">Our Work</a>
+        <a href="/index.html#pricing" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-650 hover:text-[#1a3c6e] hover:bg-slate-50 transition-all">Pricing</a>
+        <a href="/index.html#why-zera" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-650 hover:text-[#1a3c6e] hover:bg-slate-50 transition-all">Why Us</a>
+        <a href="/index.html#contact" class="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-gray-650 hover:text-[#1a3c6e] hover:bg-slate-50 transition-all">Contact</a>
+        <a href="freeaudit.html" class="inline-flex items-center justify-center px-5 py-2.5 ml-2 rounded-full text-white font-bold text-xs uppercase tracking-wider transition-all duration-150 hover:-translate-y-0.5" style="background-color: #00b4d8;">
+          Free Audit
+        </a>
+      </nav>
+
+      <!-- Mobile menu trigger -->
+      <div class="flex md:hidden">
+        <button id="mobile-menu-toggle" class="p-2 rounded-xl text-gray-600 hover:text-[#1a3c6e] hover:bg-slate-100 transition-all focus:outline-none" aria-label="Toggle Menu">
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-nav-panel" class="hidden md:hidden border-t border-slate-100 bg-white shadow-lg animate-fade-in">
+      <div class="px-4 pt-3 pb-6 space-y-2">
+        <a href="/index.html" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-gray-700 hover:bg-slate-50 transition-all">Home</a>
+        <a href="/index.html#services" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-gray-700 hover:bg-slate-50 transition-all">Services</a>
+        <a href="ourwork.html" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-[#1a3c6e] bg-[#1a3c6e]/5 transition-all">Our Work</a>
+        <a href="/index.html#pricing" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-gray-700 hover:bg-slate-50 transition-all">Pricing</a>
+        <a href="/index.html#why-zera" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-gray-700 hover:bg-slate-50 transition-all">Why Us</a>
+        <a href="/index.html#contact" class="block w-full text-left px-4 py-3 rounded-xl text-base font-semibold text-gray-700 hover:bg-slate-50 transition-all">Contact</a>
+        <a href="freeaudit.html" class="block text-center mx-4 mt-4 py-3 rounded-xl text-white font-bold text-sm uppercase tracking-wider transition-all" style="background-color: #00b4d8;">
+          Free Audit
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Title & Intro Section -->
+  <main class="flex-grow">
+    
+    <!-- Hero Banner (Subtle and professional) -->
+    <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-12 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#1a3c6e]/5 text-[#1b4380] mb-4">
+        <svg class="w-4 h-4 text-[#00b4d8]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+        </svg>
+        <span>Interactive Live Demonstrations</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1a3c6e] mb-4">
+        Websites We Have Built
+      </h1>
+      <p class="text-base sm:text-lg text-gray-500 max-w-2xl mx-auto font-normal">
+        Click inside any website below to explore it live
+      </p>
+    </section>
+
+    <!-- Websites Interactive Showcase Grid -->
+    <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 xl:gap-12">
+        
+        <!-- WEBSITE CARD 1 -->
+        <div class="flex flex-col space-y-6">
+          <!-- Mockup wrapper -->
+          <div class="relative w-full">
+            <!-- Laptop Outer Case -->
+            <div class="relative mx-auto bg-[#2d2d2d] rounded-t-2xl p-3 pb-2 border-t border-x border-gray-600 shadow-2xl">
+              <!-- Camera Lens -->
+              <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-slate-900 border border-gray-700 flex items-center justify-center">
+                <div class="w-1 h-1 rounded-full bg-blue-900"></div>
+              </div>
+              
+              <!-- Screen content area (Loads actual website) -->
+              <div class="relative bg-slate-950 rounded-lg overflow-hidden" style="height: 400px;">
+                <!-- Loading State Spinner -->
+                <div id="spinner-1" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-20 transition-opacity duration-300">
+                  <div class="w-10 h-10 border-4 border-[#00b4d8] border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p class="text-xs font-medium text-gray-300">Opening interactive sandbox...</p>
+                </div>
+
+                <!-- Live fallback label background layer -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-white p-6 text-center z-0">
+                  <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                  <p class="text-sm font-semibold tracking-wide text-gray-300">Live Website Loading</p>
+                  <p class="text-[11px] text-gray-500 max-w-xs mt-1 leading-relaxed">Please wait while the secure interactive sandbox initializes.</p>
+                </div>
+
+                <!-- Embed live website of Dr. Shivani -->
+                <iframe 
+                  src="https://dr-shivani-kappa.vercel.app" 
+                  class="w-full h-full border-0 relative z-10"
+                  onload="document.getElementById('spinner-1').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-1').style.display='none'; }, 300);"
+                  title="Dr. Shivani Dental Clinic Live Preview"
+                  referrerpolicy="no-referrer">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Laptop Metallic Base -->
+            <div class="relative w-[106%] -ml-[3%] h-3 bg-gradient-to-b from-gray-500 via-[#1f1f1f] to-[#111111] rounded-b-xl shadow-lg z-30">
+              <!-- Base Notch -->
+              <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-[#0f0f0f] rounded-b"></div>
+            </div>
+            <!-- Ground Drop Shadow -->
+            <div class="w-[90%] mx-auto h-2 bg-black/10 rounded-full blur-xs mt-1"></div>
+          </div>
+
+          <!-- Description and CTAs -->
+          <div class="text-center md:text-left md:px-2 flex flex-col items-center md:items-start pt-2">
+            <div>
+              <h2 class="text-xl font-bold text-[#1a3c6e]">Dr. Shivani Dental Clinic</h2>
+              <p class="text-xs text-gray-500 font-medium font-semibold">Modern clinic website with appointment booking</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEBSITE CARD 2 -->
+        <div class="flex flex-col space-y-6">
+          <!-- Mockup wrapper -->
+          <div class="relative w-full">
+            <!-- Laptop Outer Case -->
+            <div class="relative mx-auto bg-[#2d2d2d] rounded-t-2xl p-3 pb-2 border-t border-x border-gray-600 shadow-2xl">
+              <!-- Camera Lens -->
+              <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-slate-900 border border-gray-700 flex items-center justify-center">
+                <div class="w-1 h-1 rounded-full bg-blue-900"></div>
+              </div>
+              
+              <!-- Screen content area (Loads actual website) -->
+              <div class="relative bg-slate-950 rounded-lg overflow-hidden" style="height: 400px;">
+                <!-- Loading State Spinner -->
+                <div id="spinner-2" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-20 transition-opacity duration-300">
+                  <div class="w-10 h-10 border-4 border-[#00b4d8] border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p class="text-xs font-medium text-gray-300">Opening interactive sandbox...</p>
+                </div>
+
+                <!-- Live fallback label background layer -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-white p-6 text-center z-0">
+                  <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                  <p class="text-sm font-semibold tracking-wide text-gray-300">Live Website Loading</p>
+                  <p class="text-[11px] text-gray-500 max-w-xs mt-1 leading-relaxed">Please wait while the secure interactive sandbox initializes.</p>
+                </div>
+
+                <!-- Embed live website of Dr. Aarathi -->
+                <iframe 
+                  src="https://dr-aarathi-pune.vercel.app" 
+                  class="w-full h-full border-0 relative z-10"
+                  onload="document.getElementById('spinner-2').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-2').style.display='none'; }, 300);"
+                  title="Dr. Aarathi Dental Studio Live Preview"
+                  referrerpolicy="no-referrer">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Laptop Metallic Base -->
+            <div class="relative w-[106%] -ml-[3%] h-3 bg-gradient-to-b from-gray-500 via-[#1f1f1f] to-[#111111] rounded-b-xl shadow-lg z-30">
+              <!-- Base Notch -->
+              <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-[#0f0f0f] rounded-b"></div>
+            </div>
+            <!-- Ground Drop Shadow -->
+            <div class="w-[90%] mx-auto h-2 bg-black/10 rounded-full blur-xs mt-1"></div>
+          </div>
+
+          <!-- Description and CTAs -->
+          <div class="text-center md:text-left md:px-2 flex flex-col items-center md:items-start pt-2">
+            <div>
+              <h2 class="text-xl font-bold text-[#1a3c6e]">Dr. Aarathi Dental Studio — Pune</h2>
+              <p class="text-xs text-gray-500 font-medium font-semibold">Clean professional website with Google Maps integration</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEBSITE CARD 3 -->
+        <div class="flex flex-col space-y-6">
+          <!-- Mockup wrapper -->
+          <div class="relative w-full">
+            <!-- Laptop Outer Case -->
+            <div class="relative mx-auto bg-[#2d2d2d] rounded-t-2xl p-3 pb-2 border-t border-x border-gray-600 shadow-2xl">
+              <!-- Camera Lens -->
+              <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-slate-900 border border-gray-700 flex items-center justify-center">
+                <div class="w-1 h-1 rounded-full bg-blue-900"></div>
+              </div>
+              
+              <!-- Screen content area (Loads actual website) -->
+              <div class="relative bg-slate-950 rounded-lg overflow-hidden" style="height: 400px;">
+                <!-- Loading State Spinner -->
+                <div id="spinner-3" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-20 transition-opacity duration-300">
+                  <div class="w-10 h-10 border-4 border-[#00b4d8] border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p class="text-xs font-medium text-gray-300">Opening interactive sandbox...</p>
+                </div>
+
+                <!-- Live fallback label background layer -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-white p-6 text-center z-0">
+                  <svg class="w-12 h-12 text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                  <p class="text-sm font-semibold tracking-wide text-gray-300">Live Website Loading</p>
+                  <p class="text-[11px] text-gray-500 max-w-xs mt-1 leading-relaxed">Please wait while the secure interactive sandbox initializes.</p>
+                </div>
+
+                <!-- Embed live website of Om Dental -->
+                <iframe 
+                  src="https://om-dental-three.vercel.app" 
+                  class="w-full h-full border-0 relative z-10"
+                  onload="document.getElementById('spinner-3').style.opacity='0'; setTimeout(function(){ document.getElementById('spinner-3').style.display='none'; }, 300);"
+                  title="Om Dental Care Live Preview"
+                  referrerpolicy="no-referrer">
+                </iframe>
+              </div>
+            </div>
+            
+            <!-- Laptop Metallic Base -->
+            <div class="relative w-[106%] -ml-[3%] h-3 bg-gradient-to-b from-gray-500 via-[#1f1f1f] to-[#111111] rounded-b-xl shadow-lg z-30">
+              <!-- Base Notch -->
+              <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-[#0f0f0f] rounded-b"></div>
+            </div>
+            <!-- Ground Drop Shadow -->
+            <div class="w-[90%] mx-auto h-2 bg-black/10 rounded-full blur-xs mt-1"></div>
+          </div>
+
+          <!-- Description and CTAs -->
+          <div class="text-center md:text-left md:px-2 flex flex-col items-center md:items-start pt-2">
+            <div>
+              <h2 class="text-xl font-bold text-[#1a3c6e]">Om Dental Care</h2>
+              <p class="text-xs text-gray-500 font-medium font-semibold">Complete clinic website with services and contact form</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom Call-To-Action (CTA) panel -->
+    <section class="border-t border-gray-100 bg-slate-50 py-20 text-center">
+      <div class="max-w-4xl mx-auto px-6 sm:px-8 space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1a3c6e]">
+          Want A Website Like These?
+        </h2>
+        <p class="text-gray-550 max-w-lg mx-auto text-sm leading-relaxed">
+          Unlock high-value inbound patient bookings and rank #1 in your territory with a specialized dental website & local Google Maps schema.
+        </p>
+        <div class="pt-4">
+          <a href="freeaudit.html" class="inline-flex items-center justify-center px-10 py-4 rounded-full text-white font-bold text-sm uppercase tracking-wider transition-all shadow-lg hover:shadow-[#00b4d8]/20 bg-[#00b4d8] hover:bg-[#009dc4] hover:-translate-y-0.5">
+            Get Your Free Audit
+          </a>
+        </div>
+        <div class="pt-4 text-xs sm:text-sm text-gray-400 font-mono font-bold">
+          OR WHATSAPP US DIRECTLY: 
+          <a href="https://wa.me/919835102324?text=Hi%20Zera%20Dental%2C%20I%20saw%20your%20interactive%20mockups%20and%20want%2520to%20get%20a%20free%20website%20audit" target="_blank" rel="noopener noreferrer" class="underline text-[#00b4d8] ml-1">
+            9835102324
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Clean Footer Block -->
+  <footer class="bg-[#1a3c6e] text-white py-12 border-t border-white/5 text-xs">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div class="text-center sm:text-left space-y-1">
+        <p class="text-lg font-bold tracking-tight">Zera<span class="text-[#00b4d8]">Dental</span></p>
+        <p class="text-gray-400">High-Performance Patient Inbound Systems for Dental Clinics in India</p>
+      </div>
+      <div class="text-center sm:text-right text-gray-400 space-y-2">
+        <p>© 2026 Zera Dental. All Rights Reserved.</p>
+        <p class="text-[10px]">Specialized medical web designs for orthodontists, implantologists, dental surgeons & private clinicians.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation toggle scripts
+    const mobileMenuToggleBtn = document.getElementById('mobile-menu-toggle');
+    const mobileNavPanel = document.getElementById('mobile-nav-panel');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    mobileMenuToggleBtn.addEventListener('click', () => {
+      const isHidden = mobileNavPanel.classList.contains('hidden');
+      if (isHidden) {
+        mobileNavPanel.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileNavPanel.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
